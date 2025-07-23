@@ -1,0 +1,98 @@
+# Go build outputs
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+/go.work
+/go.work.sum
+
+# Go specific
+/bin/
+/pkg/
+/vendor/
+
+# Test coverage
+*.cover
+coverage.html
+coverage.txt
+coverage.out
+
+# Dependency directories
+vendor/
+
+# IDE files and directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+*.log
+
+# Linux
+*~
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.development
+
+# Logs
+*.log
+logs/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Claude Code configuration (user-specific)
+.claude/
+
+# Build directories
+/build/
+/dist/
+/out/
+
+# Backup files
+*.bak
+*.backup
+
+# Local development
+.local/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Certificate files
+*.pem
+*.key
+*.crt
+*.cert
+
+# Configuration files that might contain secrets
+config.local.*
+secrets.yml
+secrets.yaml
