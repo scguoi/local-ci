@@ -433,4 +433,16 @@ ls -la .git/git-branch-helpers.sh
 
 ---
 
+# 📦 代码仓库
+
+项目源码托管地址：[https://code.iflytek.com/osc/_source/CBG_OpenSource/local-ci/-/tree/heads%2Fmaster](https://code.iflytek.com/osc/_source/CBG_OpenSource/local-ci/-/tree/heads%2Fmaster)
+
+欢迎访问仓库：
+- 🔍 查看最新代码
+- 📝 提交Issue和建议  
+- 🤝 参与项目贡献
+- 📚 获取更新和发布信息
+
+---
+
 *本手册最后更新于 2025年*
