@@ -444,5 +444,3 @@ ls -la .git/git-branch-helpers.sh
 - 📚 获取更新和发布信息
 
 ---
-
-*本手册最后更新于 2025年*
