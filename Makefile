@@ -62,7 +62,7 @@ YELLOW := \033[33m
 BLUE := \033[34m
 RESET := \033[0m
 
-.PHONY: help install-tools check-tools fmt fmt-all fmt-go fmt-ts fmt-java fmt-python fmt-check check check-all check-go check-ts check-java check-python project-status hooks-check-all hooks-fmt hooks-commit-msg hooks-uninstall hooks-install hooks-install-basic branch-setup new-feature new-hotfix clean-branches list-remote-branches branch-help check-branch safe-push dev-setup
+.PHONY: help install-tools check-tools fmt fmt-all fmt-go fmt-ts fmt-java fmt-python fmt-check check check-all check-go check-ts check-java check-python project-status hooks-check-all hooks-fmt hooks-commit-msg hooks-uninstall hooks-install hooks-install-basic create-branch-helpers branch-setup new-feature new-hotfix clean-branches list-remote-branches branch-help check-branch safe-push dev-setup
 
 # 默认目标
 help: ## 显示帮助信息
@@ -514,11 +514,86 @@ hooks-install: hooks-check-all hooks-commit-msg hooks-pre-push ## 安装所有Gi
 hooks-install-basic: hooks-fmt hooks-commit-msg hooks-pre-push ## 安装基础Git hooks（pre-commit轻量模式 + commit-msg + pre-push）
 	@echo "$(GREEN)Basic Git hooks installed!$(RESET)"
 
-# 分支管理
-branch-setup: ## 设置分支管理策略
+# =============================================================================
+# Branch Management
+# =============================================================================
+
+create-branch-helpers: ## 创建Git分支管理辅助脚本
+	@echo "$(YELLOW)Creating Git branch management helper script...$(RESET)"
+	@mkdir -p .git
+	@if [ ! -f .git/git-branch-helpers.sh ]; then \
+		echo '#!/bin/bash' > .git/git-branch-helpers.sh; \
+		echo '' >> .git/git-branch-helpers.sh; \
+		echo '# Git Branch Management Helper Script' >> .git/git-branch-helpers.sh; \
+		echo '# Part of Multi-Language CI/CD Development Toolchain' >> .git/git-branch-helpers.sh; \
+		echo '' >> .git/git-branch-helpers.sh; \
+		echo '# Colors for output' >> .git/git-branch-helpers.sh; \
+		echo "RED='\033[31m'" >> .git/git-branch-helpers.sh; \
+		echo "GREEN='\033[32m'" >> .git/git-branch-helpers.sh; \
+		echo "YELLOW='\033[33m'" >> .git/git-branch-helpers.sh; \
+		echo "BLUE='\033[34m'" >> .git/git-branch-helpers.sh; \
+		echo "RESET='\033[0m'" >> .git/git-branch-helpers.sh; \
+		echo '' >> .git/git-branch-helpers.sh; \
+		echo '# Function to create a new feature branch' >> .git/git-branch-helpers.sh; \
+		echo 'new_feature() {' >> .git/git-branch-helpers.sh; \
+		echo '    local feature_name=$$1' >> .git/git-branch-helpers.sh; \
+		echo '    if [ -z "$$feature_name" ]; then' >> .git/git-branch-helpers.sh; \
+		echo '        echo -e "$${RED}Error: Feature name is required$${RESET}"' >> .git/git-branch-helpers.sh; \
+		echo '        echo "Usage: make new-feature name=my-feature"' >> .git/git-branch-helpers.sh; \
+		echo '        exit 1' >> .git/git-branch-helpers.sh; \
+		echo '    fi' >> .git/git-branch-helpers.sh; \
+		echo '    local branch_name="feature-$$feature_name"' >> .git/git-branch-helpers.sh; \
+		echo '    echo -e "$${YELLOW}Creating feature branch: $$branch_name$${RESET}"' >> .git/git-branch-helpers.sh; \
+		echo '    if git branch --list | grep -q "$$branch_name"; then' >> .git/git-branch-helpers.sh; \
+		echo '        echo -e "$${RED}Error: Branch $$branch_name already exists$${RESET}"' >> .git/git-branch-helpers.sh; \
+		echo '        exit 1' >> .git/git-branch-helpers.sh; \
+		echo '    fi' >> .git/git-branch-helpers.sh; \
+		echo '    git checkout -b "$$branch_name"' >> .git/git-branch-helpers.sh; \
+		echo '    echo -e "$${GREEN}✅ Created and switched to feature branch: $$branch_name$${RESET}"' >> .git/git-branch-helpers.sh; \
+		echo '}' >> .git/git-branch-helpers.sh; \
+		echo '' >> .git/git-branch-helpers.sh; \
+		echo '# Function to create a new hotfix branch' >> .git/git-branch-helpers.sh; \
+		echo 'new_hotfix() {' >> .git/git-branch-helpers.sh; \
+		echo '    local hotfix_name=$$1' >> .git/git-branch-helpers.sh; \
+		echo '    if [ -z "$$hotfix_name" ]; then' >> .git/git-branch-helpers.sh; \
+		echo '        echo -e "$${RED}Error: Hotfix name is required$${RESET}"' >> .git/git-branch-helpers.sh; \
+		echo '        exit 1' >> .git/git-branch-helpers.sh; \
+		echo '    fi' >> .git/git-branch-helpers.sh; \
+		echo '    local branch_name="hotfix-$$hotfix_name"' >> .git/git-branch-helpers.sh; \
+		echo '    git checkout -b "$$branch_name"' >> .git/git-branch-helpers.sh; \
+		echo '    echo -e "$${GREEN}✅ Created hotfix branch: $$branch_name$${RESET}"' >> .git/git-branch-helpers.sh; \
+		echo '}' >> .git/git-branch-helpers.sh; \
+		echo '' >> .git/git-branch-helpers.sh; \
+		echo '# Function to list remote branches' >> .git/git-branch-helpers.sh; \
+		echo 'list_remote_branches() {' >> .git/git-branch-helpers.sh; \
+		echo '    echo -e "$${BLUE}Remote branches:$${RESET}"' >> .git/git-branch-helpers.sh; \
+		echo '    git fetch --quiet' >> .git/git-branch-helpers.sh; \
+		echo '    git branch -r | grep -E "(origin/master|origin/develop|origin/feature-|origin/hotfix-)"' >> .git/git-branch-helpers.sh; \
+		echo '}' >> .git/git-branch-helpers.sh; \
+		echo '' >> .git/git-branch-helpers.sh; \
+		echo '# Function to display help' >> .git/git-branch-helpers.sh; \
+		echo 'branch_help() {' >> .git/git-branch-helpers.sh; \
+		echo '    echo -e "$${BLUE}Branch Management Help$${RESET}"' >> .git/git-branch-helpers.sh; \
+		echo '    echo "Available commands: new-feature, new-hotfix, list-remote-branches, branch-help"' >> .git/git-branch-helpers.sh; \
+		echo '}' >> .git/git-branch-helpers.sh; \
+		echo '' >> .git/git-branch-helpers.sh; \
+		echo '# Main logic' >> .git/git-branch-helpers.sh; \
+		echo 'case "$$1" in' >> .git/git-branch-helpers.sh; \
+		echo '    "new-feature") new_feature "$$2" ;;' >> .git/git-branch-helpers.sh; \
+		echo '    "new-hotfix") new_hotfix "$$2" ;;' >> .git/git-branch-helpers.sh; \
+		echo '    "list-remote-branches") list_remote_branches ;;' >> .git/git-branch-helpers.sh; \
+		echo '    "branch-help") branch_help ;;' >> .git/git-branch-helpers.sh; \
+		echo '    *) echo "Unknown command"; exit 1 ;;' >> .git/git-branch-helpers.sh; \
+		echo 'esac' >> .git/git-branch-helpers.sh; \
+		chmod +x .git/git-branch-helpers.sh; \
+		echo "$(GREEN)Git branch management helper script created$(RESET)"; \
+	else \
+		echo "$(BLUE)Git branch management helper script already exists$(RESET)"; \
+	fi
+
+branch-setup: create-branch-helpers ## 设置分支管理策略
 	@echo "$(YELLOW)Setting up branch management...$(RESET)"
 	@if [ -f .git/hooks/pre-push ]; then chmod +x .git/hooks/pre-push; fi
-	@if [ -f .git/git-branch-helpers.sh ]; then chmod +x .git/git-branch-helpers.sh; fi
 	@echo "$(GREEN)Branch management setup completed!$(RESET)"
 	@echo ""
 	@echo "$(BLUE)Available branch commands:$(RESET)"
