@@ -199,14 +199,19 @@ fmt-all: ## 格式化所有语言项目代码
 fmt-go: ## 格式化Go代码
 	@if [ "$(HAS_GO)" = "true" ]; then \
 		echo "$(YELLOW)Formatting Go code...$(RESET)"; \
-		cd backend-go && $(GO) fmt ./...; \
+		if [ -d backend-go ]; then \
+			cd backend-go && $(GO) fmt ./...; \
+		fi; \
 		if [ -n "$(GOFILES)" ]; then \
-			echo "$(YELLOW)Running goimports...$(RESET)"; \
-			$(GOIMPORTS) -w $(GOFILES) 2>/dev/null || echo "$(YELLOW)goimports skipped (tool not available)$(RESET)"; \
-			echo "$(YELLOW)Running gofumpt...$(RESET)"; \
-			$(GOFUMPT) -w $(GOFILES) 2>/dev/null || echo "$(YELLOW)gofumpt skipped (tool not available)$(RESET)"; \
-			echo "$(YELLOW)Running golines...$(RESET)"; \
-			$(GOLINES) -w -m 120 $(GOFILES) 2>/dev/null || echo "$(YELLOW)golines skipped (tool not available)$(RESET)"; \
+			if command -v $(GOIMPORTS) >/dev/null 2>&1; then \
+				$(GOIMPORTS) -w $(GOFILES) >/dev/null 2>&1 || true; \
+			fi; \
+			if command -v $(GOFUMPT) >/dev/null 2>&1; then \
+				$(GOFUMPT) -w $(GOFILES) >/dev/null 2>&1 || true; \
+			fi; \
+			if command -v $(GOLINES) >/dev/null 2>&1; then \
+				$(GOLINES) -w -m 120 $(GOFILES) >/dev/null 2>&1 || true; \
+			fi; \
 		else \
 			echo "$(BLUE)No Go files found to format$(RESET)"; \
 		fi; \
