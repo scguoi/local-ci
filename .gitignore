@@ -1,4 +1,8 @@
-# Go build outputs
+# =============================================================================
+# Language-Specific Build Files
+# =============================================================================
+
+# Go
 *.exe
 *.exe~
 *.dll
@@ -6,29 +10,72 @@
 *.dylib
 *.test
 *.out
-/go.work
-/go.work.sum
-
-# Go specific
-/bin/
-/pkg/
-/vendor/
-
-# Test coverage
-*.cover
-coverage.html
-coverage.txt
-coverage.out
-
-# Dependency directories
+go.work
+go.work.sum
+bin/
+pkg/
 vendor/
 
-# IDE files and directories
+# Java/Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+
+# TypeScript/Node.js
+node_modules/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# =============================================================================
+# Build & Output Directories
+# =============================================================================
+
+build/
+dist/
+out/
+tmp/
+
+# =============================================================================
+# Development Tools & IDEs
+# =============================================================================
+
+# IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
+
+# Claude Code (user-specific)
+.claude/
+
+# =============================================================================
+# Operating Systems
+# =============================================================================
 
 # macOS
 .DS_Store
@@ -36,19 +83,17 @@ vendor/
 ._*
 .Spotlight-V100
 .Trashes
-ehthumbs.db
-Thumbs.db
 
 # Windows
-*.log
+Thumbs.db
+ehthumbs.db
 
-# Linux
+# Linux/Unix
 *~
 
-# Temporary files
-*.tmp
-*.temp
-/tmp/
+# =============================================================================
+# Runtime & Configuration
+# =============================================================================
 
 # Environment variables
 .env
@@ -66,20 +111,16 @@ pids
 *.seed
 *.pid.lock
 
-# Claude Code configuration (user-specific)
-.claude/
-
-# Build directories
-/build/
-/dist/
-/out/
-
-# Backup files
-*.bak
-*.backup
+# Temporary files
+*.tmp
+*.temp
 
 # Local development
 .local/
+
+# =============================================================================
+# Security & Sensitive Data
+# =============================================================================
 
 # Database files
 *.db
@@ -96,3 +137,19 @@ pids
 config.local.*
 secrets.yml
 secrets.yaml
+
+# =============================================================================
+# Backup & Archive Files
+# =============================================================================
+
+*.bak
+*.backup
+
+# =============================================================================
+# Test Coverage
+# =============================================================================
+
+*.cover
+coverage.html
+coverage.txt
+coverage.out
