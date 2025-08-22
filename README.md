@@ -254,6 +254,10 @@ docs: update README with new features
 
 本项目采用 [MIT 许可证](LICENSE)。
 
+## 🤝 社区行为准则
+
+我们致力于营造一个开放、友好、多元化、包容的社区环境。请阅读我们的 [行为准则](./.github/code_of_conduct.md) 了解社区标准和价值观。
+
 ## 🙋‍♂️ 联系我们
 
 如果您有任何问题或建议，请：
