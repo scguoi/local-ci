@@ -92,10 +92,12 @@ make hooks-uninstall     # 卸载所有钩子
 
 ### 分支管理
 ```bash
-make new-feature name=user-auth    # 创建功能分支
-make new-hotfix name=critical-fix  # 创建修复分支
-make check-branch                  # 检查分支命名规范
-make safe-push                     # 安全推送分支
+# GitHub Flow 分支管理
+make new-branch type=feature name=user-auth  # 创建 feature/user-auth 分支
+make new-feature name=user-auth              # 快捷创建功能分支
+make new-fix name=login-bug                  # 创建 fix/login-bug 分支
+make check-branch                            # 检查分支命名规范
+make safe-push                               # 安全推送分支
 ```
 
 ## 📋 完整命令列表
@@ -116,7 +118,10 @@ make safe-push                     # 安全推送分支
 | **帮助信息** | `make help` | 显示所有可用命令 |
 | | `make info` | 显示项目信息 |
 
-> 📚 **详细文档**：查看 [Makefile-readme.md](./Makefile-readme.md) 获取完整的命令说明和使用示例
+> 📚 **详细文档**：
+> - [Makefile 命令文档](./Makefile-readme.md) - 完整命令说明和使用示例
+> - [贡献者分支管理指南](./BRANCH-MANAGEMENT-ZH.md) - 面向贡献者的 GitHub Flow 工作流指南
+> - [Contributor's Branch Management Guide](./BRANCH-MANAGEMENT-EN.md) - English guide for contributors
 
 ## 🔧 开发工具链
 
@@ -137,12 +142,16 @@ make safe-push                     # 安全推送分支
 - **commit-msg**: 验证提交信息格式（Conventional Commits）
 - **pre-push**: 验证分支命名规范
 
-### 分支命名规范
+### 分支命名规范 (GitHub Flow)
 
-- `master` - 主分支
-- `develop` - 开发分支
-- `feature-*` - 功能分支
-- `hotfix-*` - 热修复分支
+- `main`/`master` - 主分支，始终可部署
+- `feature/<name>` - 功能分支，如 `feature/user-auth`
+- `fix/<name>` - Bug修复分支，如 `fix/login-error`
+- `docs/<name>` - 文档分支，如 `docs/api-guide`
+- `refactor/<name>` - 重构分支，如 `refactor/cleanup`
+- `test/<name>` - 测试分支，如 `test/unit-coverage`
+
+> 📋 **详细规范**：参阅 [分支管理规范文档](./BRANCH-MANAGEMENT-ZH.md) | [Branch Management Guide (EN)](./BRANCH-MANAGEMENT-EN.md)
 
 ## 🎯 使用场景
 
@@ -158,11 +167,13 @@ make check      # 检查代码质量
 git commit      # 自动触发钩子检查
 ```
 
-### 场景3：功能开发
+### 场景3：功能开发 (GitHub Flow)
 ```bash
-make new-feature name=payment-system  # 创建功能分支
+make new-feature name=payment-system  # 创建 feature/payment-system 分支
 # ... 开发代码 ...
-make safe-push  # 安全推送分支
+make fmt && make check                 # 格式化和质量检查
+make safe-push                         # 安全推送分支
+# 在GitHub上创建Pull Request进行代码审查
 ```
 
 ### 场景4：代码审查前
@@ -226,7 +237,15 @@ docs: update README with new features
 
 ## 📚 相关资源
 
+### 项目文档
+- [贡献者分支管理指南](./BRANCH-MANAGEMENT-ZH.md) - 为想要贡献代码的开发者提供的 GitHub Flow 工作流指南
+- [Contributor's Branch Management Guide](./BRANCH-MANAGEMENT-EN.md) - English guide for developers who want to contribute
+- [Makefile 命令文档](./Makefile-readme.md) - 详细的命令说明
+- [高级PR管理设置](./ADVANCED-PR-SETUP.md) - 高级用户功能（仅限项目维护者）
+
+### 外部资源
 - [Go 官方文档](https://golang.org/doc/)
+- [GitHub Flow 官方指南](https://docs.github.com/en/get-started/quickstart/github-flow)
 - [Conventional Commits 规范](https://www.conventionalcommits.org/)
 - [golangci-lint 配置指南](https://golangci-lint.run/)
 - [Make 工具手册](https://www.gnu.org/software/make/manual/)
