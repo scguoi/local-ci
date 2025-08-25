@@ -27,7 +27,7 @@ project-status: ## Show detected project status
 install-tools: ## Install formatting and checking tools for all languages
 	@echo "$(YELLOW)Installing multi-language development tools...$(RESET)"
 	@make --no-print-directory install-tools-go
-	@make --no-print-directory install-tools-ts
+	@make --no-print-directory install-tools-typescript
 	@make --no-print-directory install-tools-java
 	@make --no-print-directory install-tools-python
 	@echo "$(GREEN)All multi-language tools installation completed!$(RESET)"
@@ -36,7 +36,7 @@ install-tools: ## Install formatting and checking tools for all languages
 check-tools: ## Check if development tools for all languages are installed
 	@echo "$(YELLOW)Checking multi-language development tools...$(RESET)"
 	@make --no-print-directory check-tools-go
-	@make --no-print-directory check-tools-ts  
+	@make --no-print-directory check-tools-typescript  
 	@make --no-print-directory check-tools-java
 	@make --no-print-directory check-tools-python
 	@echo "$(GREEN)Multi-language tools check completed!$(RESET)"
@@ -47,7 +47,7 @@ fmt: fmt-all ## Format all project code
 fmt-all: ## Format code for all language projects
 	@echo "$(YELLOW)Formatting all projects...$(RESET)"
 	@make --no-print-directory fmt-go
-	@make --no-print-directory fmt-ts
+	@make --no-print-directory fmt-typescript
 	@make --no-print-directory fmt-java
 	@make --no-print-directory fmt-python
 	@echo "$(GREEN)All projects formatted!$(RESET)"
@@ -58,7 +58,7 @@ check: check-all ## Run all code quality checks
 check-all: ## Check code quality for all language projects
 	@echo "$(YELLOW)Running code quality checks for all projects...$(RESET)"
 	@make --no-print-directory check-go
-	@make --no-print-directory check-ts
+	@make --no-print-directory check-typescript
 	@make --no-print-directory check-java
 	@make --no-print-directory check-python
 	@echo "$(GREEN)All code quality checks completed!$(RESET)"
@@ -67,7 +67,7 @@ check-all: ## Check code quality for all language projects
 fmt-check: ## Check if code format meets standards (without modifying files)
 	@echo "$(YELLOW)Checking code formatting...$(RESET)"
 	@make --no-print-directory fmt-check-go
-	@make --no-print-directory fmt-check-ts
+	@make --no-print-directory fmt-check-typescript
 	@make --no-print-directory fmt-check-java
 	@make --no-print-directory fmt-check-python
 	@echo "$(GREEN)Code formatting checks passed$(RESET)"
