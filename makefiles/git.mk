@@ -70,12 +70,12 @@ hooks-commit-msg: ## Install commit-msg hook for commit message format validatio
 	@echo '#!/bin/sh' > .git/hooks/commit-msg
 	@echo '# Validate commit message format (Conventional Commits)' >> .git/hooks/commit-msg
 	@echo '' >> .git/hooks/commit-msg
-	@echo 'commit_regex="^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?: .{1,50}"' >> .git/hooks/commit-msg
+	@echo 'commit_regex="^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\(.+\))?: .{1,50}"' >> .git/hooks/commit-msg
 	@echo '' >> .git/hooks/commit-msg
 	@echo 'if ! grep -qE "$$commit_regex" "$$1"; then' >> .git/hooks/commit-msg
 	@echo '    echo "\033[31mCommit message format error!\033[0m"' >> .git/hooks/commit-msg
 	@echo '    echo "Expected format: <type>(<scope>): <description>"' >> .git/hooks/commit-msg
-	@echo '    echo "Types: feat, fix, docs, style, refactor, test, chore"' >> .git/hooks/commit-msg
+	@echo '    echo "Types: build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test"' >> .git/hooks/commit-msg
 	@echo '    echo "Example: feat: add user authentication"' >> .git/hooks/commit-msg
 	@echo '    echo "Example: fix(auth): resolve login validation issue"' >> .git/hooks/commit-msg
 	@echo '    exit 1' >> .git/hooks/commit-msg
