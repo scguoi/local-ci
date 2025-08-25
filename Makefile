@@ -21,7 +21,7 @@ include makefiles/git.mk
 # =============================================================================
 
 # Declare all PHONY targets
-.PHONY: help install-tools check-tools fmt fmt-all fmt-go fmt-ts fmt-java fmt-python fmt-check check check-all check-go check-ts check-java check-python project-status hooks-check-all hooks-fmt hooks-commit-msg hooks-uninstall hooks-install hooks-install-basic create-branch-helpers branch-setup new-branch new-feature new-fix clean-branches list-remote-branches branch-help check-branch safe-push dev-setup
+.PHONY: help install-tools check-tools fmt fmt-all fmt-go fmt-ts fmt-java fmt-python fmt-check check check-all check-go check-ts check-java check-python project-status hooks-check-all hooks-fmt hooks-commit-msg hooks-uninstall hooks-install hooks-install-basic create-branch-helpers branch-setup new-branch new-feature new-bugfix new-hotfix new-design clean-branches list-remote-branches branch-help check-branch safe-push dev-setup
 
 # Default target
 help: ## Show help information
