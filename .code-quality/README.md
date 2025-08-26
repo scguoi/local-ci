@@ -8,6 +8,7 @@
 .code-quality/
 ├── README.md          # 本说明文件
 ├── go.md             # Go语言代码质量检测完整指南
+├── python.md         # Python代码质量检测完整指南
 └── typescript.md     # TypeScript代码质量检测完整指南
 ```
 
@@ -16,8 +17,8 @@
 | 语言 | 文档 | 工具链 | 状态 |
 |------|------|--------|------|
 | **Go** | [`go.md`](./go.md) | gofmt + goimports + gofumpt + golines + staticcheck + golangci-lint | ✅ 完整 |
+| **Python** | [`python.md`](./python.md) | black + isort + flake8 + mypy + pylint | ✅ 完整 |
 | **TypeScript** | [`typescript.md`](./typescript.md) | prettier + eslint + tsc | ✅ 完整 |
-| **Python** | *集成在配置中* | black + isort + flake8 + mypy + pylint | ✅ 完整 |
 | **Java** | *待开发* | spotless + checkstyle + spotbugs | 🚧 规划中 |
 
 ## 🚀 快速开始
@@ -26,6 +27,9 @@
 ```bash
 # Go语言
 cat .code-quality/go.md
+
+# Python  
+cat .code-quality/python.md
 
 # TypeScript
 cat .code-quality/typescript.md
