@@ -16,7 +16,11 @@ JAVA_FILES := $(shell find backend-java -name "*.java" 2>/dev/null || true)
 install-tools-java: ## Install Java development tools
 	@if [ "$(HAS_JAVA)" = "true" ]; then \
 		echo "$(YELLOW)Installing Java tools...$(RESET)"; \
-		echo "$(GREEN)Java tools ready (using Maven built-in tools)$(RESET)"; \
+		echo "$(GREEN)Java tools ready (using Maven plugins)$(RESET)"; \
+		echo "  - Spotless: Code formatting with Google Java Format"; \
+		echo "  - Checkstyle: Code style verification"; \
+		echo "  - SpotBugs: Static analysis for bug detection"; \
+		echo "  - PMD: Code quality analyzer"; \
 	else \
 		echo "$(BLUE)Skipping Java tools (no Java project detected)$(RESET)"; \
 	fi
@@ -36,7 +40,7 @@ check-tools-java: ## Check Java development tools
 fmt-java: ## Format Java code
 	@if [ "$(HAS_JAVA)" = "true" ]; then \
 		echo "$(YELLOW)Formatting Java code...$(RESET)"; \
-		cd $(JAVA_DIR) && $(MVN) compile; \
+		cd $(JAVA_DIR) && $(MVN) spotless:apply; \
 		echo "$(GREEN)Java code formatted$(RESET)"; \
 	else \
 		echo "$(BLUE)Skipping Java formatting (no Java project)$(RESET)"; \
@@ -49,10 +53,14 @@ fmt-java: ## Format Java code
 check-java: ## Check Java code quality
 	@if [ "$(HAS_JAVA)" = "true" ]; then \
 		echo "$(YELLOW)Checking Java code quality...$(RESET)"; \
-		cd $(JAVA_DIR); \
-		$(MVN) compile; \
-		$(MVN) test; \
-		echo "$(GREEN)Java code quality checks passed$(RESET)"; \
+		cd $(JAVA_DIR) && \
+		echo "$(YELLOW)Running Checkstyle...$(RESET)" && \
+		$(MVN) checkstyle:check && \
+		echo "$(YELLOW)Running SpotBugs...$(RESET)" && \
+		$(MVN) spotbugs:check && \
+		echo "$(YELLOW)Running PMD...$(RESET)" && \
+		$(MVN) pmd:check; \
+		echo "$(GREEN)Java code quality checks completed$(RESET)"; \
 	else \
 		echo "$(BLUE)Skipping Java checks (no Java project)$(RESET)"; \
 	fi
@@ -70,6 +78,31 @@ info-java: ## Show Java project information
 fmt-check-java: ## Check if Java code format meets standards (without modifying files)
 	@echo "$(YELLOW)Checking Java code formatting...$(RESET)"
 	@if [ "$(HAS_JAVA)" = "true" ]; then \
-		cd $(JAVA_DIR) && $(MVN) validate || (echo "$(RED)Java code validation failed. Run 'make fmt-java' to fix.$(RESET)" && exit 1); \
+		cd $(JAVA_DIR) && $(MVN) spotless:check || (echo "$(RED)Java code is not formatted. Run 'make fmt-java' to fix.$(RESET)" && exit 1); \
 	fi
 	@echo "$(GREEN)Java code formatting checks passed$(RESET)"
+
+# =============================================================================
+# Individual Java Quality Check Tools
+# =============================================================================
+
+check-checkstyle-java: ## Run Checkstyle code style checks
+	@echo "$(YELLOW)Running Checkstyle checks...$(RESET)"
+	@if [ "$(HAS_JAVA)" = "true" ]; then \
+		cd $(JAVA_DIR) && $(MVN) checkstyle:check; \
+		echo "$(GREEN)Checkstyle checks passed$(RESET)"; \
+	fi
+
+check-spotbugs-java: ## Run SpotBugs static analysis
+	@echo "$(YELLOW)Running SpotBugs static analysis...$(RESET)"
+	@if [ "$(HAS_JAVA)" = "true" ]; then \
+		cd $(JAVA_DIR) && $(MVN) spotbugs:check; \
+		echo "$(GREEN)SpotBugs analysis passed$(RESET)"; \
+	fi
+
+check-pmd-java: ## Run PMD code quality analysis
+	@echo "$(YELLOW)Running PMD code quality analysis...$(RESET)"
+	@if [ "$(HAS_JAVA)" = "true" ]; then \
+		cd $(JAVA_DIR) && $(MVN) pmd:check; \
+		echo "$(GREEN)PMD analysis passed$(RESET)"; \
+	fi

@@ -8,6 +8,7 @@
 .code-quality/
 ├── README.md          # 本说明文件
 ├── go.md             # Go语言代码质量检测完整指南
+├── java.md           # Java代码质量检测完整指南
 ├── python.md         # Python代码质量检测完整指南
 └── typescript.md     # TypeScript代码质量检测完整指南
 ```
@@ -17,9 +18,9 @@
 | 语言 | 文档 | 工具链 | 状态 |
 |------|------|--------|------|
 | **Go** | [`go.md`](./go.md) | gofmt + goimports + gofumpt + golines + staticcheck + golangci-lint | ✅ 完整 |
+| **Java** | [`java.md`](./java.md) | spotless + checkstyle + spotbugs + pmd | ✅ 完整 |
 | **Python** | [`python.md`](./python.md) | black + isort + flake8 + mypy + pylint | ✅ 完整 |
 | **TypeScript** | [`typescript.md`](./typescript.md) | prettier + eslint + tsc | ✅ 完整 |
-| **Java** | *待开发* | spotless + checkstyle + spotbugs | 🚧 规划中 |
 
 ## 🚀 快速开始
 
@@ -27,6 +28,9 @@
 ```bash
 # Go语言
 cat .code-quality/go.md
+
+# Java
+cat .code-quality/java.md
 
 # Python  
 cat .code-quality/python.md
@@ -45,6 +49,7 @@ make check
 
 # 针对特定语言
 make fmt-go && make check-go
+make fmt-java && make check-java
 make fmt-typescript && make check-typescript
 make fmt-python && make check-python
 ```
@@ -66,6 +71,7 @@ make fmt-python && make check-python
 - [`Makefile-readme.md`](../Makefile-readme.md) - 完整的Makefile使用指南
 - [`BRANCH_MANAGEMENT.md`](../BRANCH_MANAGEMENT.md) - 分支管理和提交规范
 - [`backend-go/`](../backend-go/) - Go项目示例
+- [`backend-java/`](../backend-java/) - Java项目示例
 - [`frontend-ts/`](../frontend-ts/) - TypeScript项目示例  
 - [`backend-python/`](../backend-python/) - Python项目示例
 
