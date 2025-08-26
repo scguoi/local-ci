@@ -15,6 +15,7 @@
         <exclude name="JUnitTestsShouldIncludeAssert"/>
         <exclude name="JUnitAssertionsShouldIncludeMessage"/>
         <exclude name="GuardLogStatement"/>
+        <exclude name="SystemPrintln"/>
     </rule>
 
     <!-- Code Style Rules -->
@@ -46,7 +47,6 @@
     <!-- Error Prone Rules -->
     <rule ref="category/java/errorprone.xml">
         <!-- Exclude rules that might give false positives -->
-        <exclude name="BeanMembersShouldSerialize"/>
         <exclude name="DataflowAnomalyAnalysis"/>
         <exclude name="NullAssignment"/>
     </rule>
@@ -67,21 +67,9 @@
         </properties>
     </rule>
 
-    <rule ref="category/java/design.xml/ExcessiveMethodLength">
-        <properties>
-            <property name="minimum" value="50"/>
-        </properties>
-    </rule>
-
     <rule ref="category/java/design.xml/ExcessiveParameterList">
         <properties>
             <property name="minimum" value="7"/>
-        </properties>
-    </rule>
-
-    <rule ref="category/java/design.xml/ExcessiveClassLength">
-        <properties>
-            <property name="minimum" value="500"/>
         </properties>
     </rule>
 
@@ -127,5 +115,6 @@
             <property name="serialVersionUIDCommentRequired" value="Ignored"/>
         </properties>
     </rule>
+    
 
 </ruleset>

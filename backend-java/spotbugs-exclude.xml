@@ -17,7 +17,7 @@
     
     <!-- Exclude main method from unused parameter check -->
     <Match>
-        <Method name="main" params="java.lang.String[]"/>
+        <Method name="main" params="java.lang.String\[\]"/>
         <Bug pattern="UPM_UNCALLED_PRIVATE_METHOD"/>
     </Match>
     
