@@ -18,8 +18,24 @@
         <spotless.version>2.43.0</spotless.version>
         <checkstyle.version>10.12.4</checkstyle.version>
         <spotbugs.version>4.8.2.0</spotbugs.version>
-        <pmd.version>3.21.2</pmd.version>
+        <p3c.version>2.1.1</p3c.version>
+        <slf4j.version>2.0.9</slf4j.version>
+        <logback.version>1.4.11</logback.version>
     </properties>
+    
+    <dependencies>
+        <!-- Logging Framework -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+    </dependencies>
     
     <build>
         <plugins>
@@ -93,11 +109,11 @@
                 </configuration>
             </plugin>
             
-            <!-- PMD Code Quality Analyzer -->
+            <!-- PMD with Alibaba P3C Rules -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>${pmd.version}</version>
+                <version>3.21.2</version>
                 <configuration>
                     <targetJdk>17</targetJdk>
                     <includeTests>true</includeTests>
@@ -106,6 +122,13 @@
                     </rulesets>
                     <printFailingErrors>true</printFailingErrors>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.alibaba.p3c</groupId>
+                        <artifactId>p3c-pmd</artifactId>
+                        <version>${p3c.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

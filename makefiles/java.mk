@@ -58,7 +58,7 @@ check-java: ## Check Java code quality
 		$(MVN) checkstyle:check && \
 		echo "$(YELLOW)Running SpotBugs...$(RESET)" && \
 		$(MVN) spotbugs:check && \
-		echo "$(YELLOW)Running PMD...$(RESET)" && \
+		echo "$(YELLOW)Running PMD with Alibaba P3C rules...$(RESET)" && \
 		$(MVN) pmd:check; \
 		echo "$(GREEN)Java code quality checks completed$(RESET)"; \
 	else \
@@ -100,9 +100,9 @@ check-spotbugs-java: ## Run SpotBugs static analysis
 		echo "$(GREEN)SpotBugs analysis passed$(RESET)"; \
 	fi
 
-check-pmd-java: ## Run PMD code quality analysis
-	@echo "$(YELLOW)Running PMD code quality analysis...$(RESET)"
+check-pmd-java: ## Run PMD with Alibaba P3C rules
+	@echo "$(YELLOW)Running PMD with Alibaba P3C rules...$(RESET)"
 	@if [ "$(HAS_JAVA)" = "true" ]; then \
 		cd $(JAVA_DIR) && $(MVN) pmd:check; \
-		echo "$(GREEN)PMD analysis passed$(RESET)"; \
+		echo "$(GREEN)PMD with Alibaba P3C rules passed$(RESET)"; \
 	fi
