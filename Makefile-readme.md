@@ -43,7 +43,7 @@ local-ci/
 |------|-----------|------------|----------|
 | **Go** | gofmt, goimports, gofumpt, golines | gocyclo, staticcheck, golangci-lint | go build |
 | **TypeScript** | prettier | eslint, @typescript-eslint | tsc |
-| **Java** | Maven plugins | Maven compile, test | mvn compile |
+| **Java** | Spotless (Google Java Format) | **阿里巴巴P3C规范**, Checkstyle, SpotBugs, SLF4J日志 | mvn compile |
 | **Python** | black | flake8, mypy | python -m py_compile |
 
 ---
@@ -101,7 +101,7 @@ make safe-push
 | `make fmt` | **格式化所有项目** | Go + TS + Java + Python |
 | `make fmt-go` | 格式化Go代码 | Go |
 | `make fmt-ts` | 格式化TypeScript代码 | TypeScript |
-| `make fmt-java` | 编译Java代码 | Java/Maven |
+| `make fmt-java` | 格式化Java代码 | Java/Maven (Spotless) |
 | `make fmt-python` | 格式化Python代码 | Python |
 | `make fmt-check` | 检查格式（不修改） | 所有语言 |
 
@@ -111,7 +111,7 @@ make safe-push
 | `make check` | **运行所有质量检查** | Go + TS + Java + Python |
 | `make check-go` | Go代码质量检查 | Go |
 | `make check-ts` | TypeScript代码检查 | TypeScript |
-| `make check-java` | Java编译测试 | Java/Maven |
+| `make check-java` | **Java质量检查（含P3C规范）** | Java/Maven |
 | `make check-python` | Python代码检查 | Python |
 
 ### 🪝 Git Hooks管理
@@ -375,6 +375,52 @@ jobs:
 3. **添加语言**：按照现有模式扩展新语言支持
 4. **集成工具**：添加企业内部质量工具
 
+### ☕ Java阿里巴巴P3C规范升级
+
+本工具链已全面升级至**阿里巴巴P3C代码规范**，基于《阿里巴巴Java开发手册》提供企业级Java代码质量检查。
+
+#### 🔄 主要变更
+- **PMD规则集**：从通用PMD规则升级为阿里巴巴P3C专用规则
+- **规则数量**：从120行配置精简至49行，聚焦核心规范
+- **检查维度**：覆盖10大代码规范类别
+- **日志框架**：强制使用SLF4J+Logback替代System.out
+
+#### 📋 P3C规则覆盖范围
+- **注释规约**：强制类注释包含@author和@date
+- **并发处理**：线程安全和同步机制规范
+- **异常处理**：不允许捕获Exception，强制日志记录
+- **命名风格**：严格的变量和方法命名规范
+- **常量定义**：魔法值检测和常量化要求
+- **集合处理**：ArrayList vs LinkedList最佳实践
+- **ORM规约**：数据库操作安全规范
+- **其他规约**：包含性能和安全相关检查
+
+#### 🛠️ 验证P3C规则
+```bash
+# 运行Java质量检查（包含P3C规范）
+make check-java
+
+# 单独运行P3C检查
+make check-pmd-java
+```
+
+#### 📝 常见P3C违规示例
+```java
+// ❌ 违规：使用System.out.println
+System.out.println("Hello");
+
+// ✅ 符合P3C：使用Logger
+private static final Logger LOGGER = LoggerFactory.getLogger(MyClass.class);
+LOGGER.info("Hello");
+
+// ❌ 违规：魔法值
+if (status.equals("active")) { ... }
+
+// ✅ 符合P3C：常量定义
+private static final String STATUS_ACTIVE = "active";
+if (STATUS_ACTIVE.equals(status)) { ... }
+```
+
 ---
 
 ## 📚 参考资源
@@ -395,6 +441,7 @@ jobs:
 - [ESLint 规则](https://eslint.org/docs/rules/)
 - [Black 代码格式化](https://black.readthedocs.io/)
 - [Prettier 配置](https://prettier.io/docs/en/configuration.html)
+- [阿里巴巴Java开发手册](https://github.com/alibaba/p3c) - P3C规范完整说明
 
 ---
 

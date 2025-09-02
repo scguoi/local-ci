@@ -145,9 +145,9 @@ make check-eslint-typescript   # ESLint语法和风格检查
 make check-tsc-typescript      # TypeScript类型检查
 
 # Java质量检查
-make check-java            # Java项目完整检查  
+make check-java            # Java项目完整检查（含阿里巴巴P3C规范）
 make check-checkstyle-java # Checkstyle代码风格检查
-make check-pmd-java        # PMD代码质量分析
+make check-pmd-java        # **阿里巴巴P3C代码质量检查**
 make check-spotbugs-java   # SpotBugs静态分析
 
 # Python质量检查
@@ -237,8 +237,9 @@ make safe-push                      # 验证分支名后安全推送
 |------|------|------|
 | **spotless** | maven-plugin | 代码格式化（Google Java Format） |
 | **checkstyle** | maven-plugin | 代码风格检查 |
-| **pmd** | maven-plugin | 代码质量分析 |
+| **p3c-pmd** | 2.1.1 | **阿里巴巴P3C代码规范**（基于《阿里巴巴Java开发手册》） |
 | **spotbugs** | maven-plugin | 静态分析和Bug检测 |
+| **slf4j + logback** | latest | 标准日志框架（替代System.out） |
 
 ### 🐍 Python 工具链
 | 工具 | 版本 | 用途 |
@@ -363,7 +364,7 @@ make fmt-check     # 验证所有代码格式正确
 
 - **Go**：遵循官方规范，通过`gofumpt`和`golangci-lint`
 - **TypeScript**：使用Prettier格式化，ESLint规则检查
-- **Java**：Google Java Format，Checkstyle规则
+- **Java**：Google Java Format，**阿里巴巴P3C代码规范**，Checkstyle规则
 - **Python**：Black格式化，pylint和mypy类型检查
 - **提交信息**：遵循 [Conventional Commits](https://www.conventionalcommits.org/) 规范
 
